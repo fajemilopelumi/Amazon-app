@@ -1,10 +1,11 @@
 import React from "react";
-import data from './data';
-import { Link } from "react-router-dom";
-
+import { BrowserRouter, Route} from "react-router-dom";
+import HomeScreen from "./components/screens/homeScreen";
+import ProductScreen from "./components/screens/productScreen";
 const App = () => {
   return (
-    <>
+    <BrowserRouter>
+     <>
       <div className="grid-container">
         <header className="row">
           <div>
@@ -18,45 +19,15 @@ const App = () => {
           </div>
         </header>
         <main>
-          <div className="row center">
-            {
-              data.products.map(product => (
-                <div key = {product._id} className="card">
-                <a href={`/product/${product._id}`}>
-                  <img className="medium" src={product.image} alt={product.name}/>
-                </a>
-                <div className="card-body">
-                  <a href={`/product/${product._id}`}>
-                    <h2>{product.name}</h2>
-                  </a>
-                  <div className="rating">
-                    <span>
-                      <i className="fa fa-star" aria-hidden="true"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                  </div>
-                  <div className="price">${product.price}</div>
-                </div>
-              </div>
-              ))
-            }
-           
-          </div>
+          <Route path="/" component={HomeScreen} exact></Route>
+          <Route path="/product/:id" component={ProductScreen} exact></Route>
+         
         </main>
         <footer className="row center">All right researved</footer>
       </div>
     </>
+    </BrowserRouter>
+   
   );
 };
 
