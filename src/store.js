@@ -1,15 +1,56 @@
-import { createStore, compose, applyMiddleware, combineReducers} from 'redux';
-import thunk from 'redux-thunk';
-import { productListReducer } from './components/reducers/productReducers';
+import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { cartReducer } from "./components/reducers/cartReducers";
+import { orderCreateReducer, orderDetailsReducer, orderMineListReducer, orderPayReducer } from "./components/reducers/orderReducer";
+import {
+  productDetailsReducer,
+  productListReducer,
+} from "./components/reducers/productReducers";
+import {
+  userDetailsReducer,
+  userRegisterReducer,
+  userSigninReducer,
+  userUpdateProfileReducer,
+} from "./components/reducers/userReducers";
 
-
-
-const initialState = {};
+const initialState = {
+  userSignin: {
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
+  },
+  cart: {
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
+    shippingAddress: localStorage.getItem("shippingAddress")
+      ? JSON.parse(localStorage.getItem("shippingAddress"))
+      : {},
+      paymentMethod: 'Paypal'
+  },
+};
 const reducer = combineReducers({
-    productList: productListReducer
-})
+  productList: productListReducer,
+  productDetails: productDetailsReducer,
+  cart: cartReducer,
+  userSignin: userSigninReducer,
+  userRegister: userRegisterReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
+  orderMineList: orderMineListReducer,
+  userDetails : userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer
+});
+
+
+
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(thunk)));
+const store = createStore(
+  reducer,
+  initialState,
+  composeEnhancer(applyMiddleware(thunk))
+);
 
-export default store; 
+export default store;
