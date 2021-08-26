@@ -1,10 +1,21 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { cartReducer } from "./components/reducers/cartReducers";
-import { orderCreateReducer, orderDetailsReducer, orderMineListReducer, orderPayReducer } from "./components/reducers/orderReducer";
 import {
+  orderCreateReducer,
+  orderDetailsReducer,
+  orderMineListReducer,
+  orderPayReducer,
+  orderDeliverReducer,
+  orderListReducer,
+  orderDeleteReducer,
+} from "./components/reducers/orderReducer";
+import {
+  productCreateReducer,
   productDetailsReducer,
   productListReducer,
+  productUpdateReducer,
+  productDeleteReducer,
 } from "./components/reducers/productReducers";
 import {
   userDetailsReducer,
@@ -26,7 +37,7 @@ const initialState = {
     shippingAddress: localStorage.getItem("shippingAddress")
       ? JSON.parse(localStorage.getItem("shippingAddress"))
       : {},
-      paymentMethod: 'Paypal'
+    paymentMethod: "Paypal",
   },
 };
 const reducer = combineReducers({
@@ -39,17 +50,21 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderMineList: orderMineListReducer,
-  userDetails : userDetailsReducer,
-  userUpdateProfile: userUpdateProfileReducer
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
+  productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
+  productDelete: productDeleteReducer,
+  orderList: orderListReducer,
+  orderDelete: orderDeleteReducer,
+  orderDeliver: orderDeliverReducer,
 });
-
-
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   reducer,
-  initialState,
+  initialState, 
   composeEnhancer(applyMiddleware(thunk))
 );
 

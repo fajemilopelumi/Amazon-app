@@ -14,6 +14,10 @@ import SigninScreen from "./components/screens/signinScreen";
 import OrderHistoryScreen from "./components/screens/orderHistoryScreen"
 import ProfileScreen from "./components/screens/userProfileScreen";
 import PrivateRoute from "./components/PrivateRoute";
+import ProductListScreen from "./components/screens/ProductListScreen";
+import AdminRoute from './components/screens/AdminRoute';
+import ProductEditScreen from './components/screens/ProductEditScreen';
+import OrderListScreen from "./components/screens/OrderListScreen";
 const App = () => { 
 
   const cart = useSelector(state => state.cart);
@@ -98,8 +102,20 @@ const App = () => {
           <Route path="/register" component={RegisterScreen} exact></Route>
           <Route path="/order/:id" component={OrderScreen} exact></Route>
           <Route path="/orderhistory" component={OrderHistoryScreen} exact></Route>
+          <AdminRoute
+            path="/orderlist"
+            component={OrderListScreen}
+          ></AdminRoute>
+          <Route
+            path="/product/:id/edit"
+            component={ProductEditScreen}
+            exact
+          ></Route>
           <PrivateRoute path="/profile" component={ProfileScreen} exact></PrivateRoute>
-         
+          <AdminRoute
+            path="/productlist"
+            component={ProductListScreen}
+          ></AdminRoute>
         </main>
         <footer className="row center">All right researved</footer>
       </div>
